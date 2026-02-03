@@ -1,3 +1,3 @@
-<h1 class="font-extrabold my-4">
+<h2 class="text-base/7 font-semibold text-white">
     {{$slot }}
-</h1>
+</h2>
