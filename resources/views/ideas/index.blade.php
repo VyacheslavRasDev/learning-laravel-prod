@@ -1,42 +1,41 @@
 <x-layout>
-    <div>
-        <x-head class="font-extrabold ">
-            Hello there!
-        </x-head>
-    </div>
-    <form action="/ideas" method="POST">
-        @csrf
-        <div class="space-y-12">
-            <div class="border-b border-white/10 pb-12">
-                <p class="mt-1 text-sm/6 text-gray-400">Create you`re amazing ideas!</p>
-                <div class="mt-3 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-16">
-                    <div class="col-span-full">
-                        <label for="description" class="block text-sm/6 font-medium text-white">Youre idea</label>
-                        <div class="mt-2">
-                            <textarea id="description" name="description" rows="5" class="block w-full   rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mt-6 flex items-center gap-x-6">
-            <button type="submit" class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-                Create
-            </button>
-        </div>
-    </form>
-    <div class="flex flex-col my-4">
+    <div class="flex flex-col justify-center items-center justify-items-center my-4 mx-auto">
         <x-head>
             Youre ideas
         </x-head>
         @if($ideas->count())
-            <div class="flex flex-col">
+            <div class="flex flex-wrap justify-between px-24">
                 @foreach($ideas as $idea)
-                    <li>
-                        <a href="/ideas/{{ $idea->id }}" class="text-violet-400"> {{ $idea->description }}</a>
-                    </li>
+                    <div class="card bg-neutral text-neutral-content w-96 mx-4 my-3">
+                        <div class="card-body items-center text-center">
+                            <h2 class="card-title">{{$idea->id}}</h2>
+                            <a href="/ideas/{{ $idea->id }}" class="text-violet-400"> {{ $idea->description }}</a>
+                            <div class="card-actions justify-end">
+                                <a href="/ideas/{{ $idea->id }}/edit" class="btn btn-primary">Edit</a>
+                                <form id="delete-idea-form" action="/ideas/{{$idea->id}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-700 btn btn-ghost">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 @endforeach
+            </div>
+            <div class="my-5">
+                <a href="/ideas/create" class="rounded-md bg-violet-800 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                    Create
+                </a>
+            </div>
+        @else
+            <div>
+                <x-head>The is no ideas</x-head>
+                <a href="/ideas/create" class="rounded-md bg-violet-800 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                    Create
+                </a>
             </div>
         @endif
     </div>
+
+
 </x-layout>

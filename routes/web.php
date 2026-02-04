@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\SessionsController;
+use App\Http\Controllers\IdeaController;
 use App\Models\Idea;
 use Illuminate\Support\Facades\Route;
 
@@ -7,51 +10,17 @@ Route::get('/', function () {
     return redirect('/ideas');
 });
 
-//index
-Route::get('/ideas', function () {
-    $ideas = Idea::all();
+Route::get('/ideas', [IdeaController::class, 'index']);
+Route::get('/ideas/create', [IdeaController::class, 'create']);
+Route::post('/ideas', [IdeaController::class, 'store']);
+Route::get('/ideas/{idea}', [IdeaController::class, 'show']);
+Route::get('/ideas/{idea}/edit', [IdeaController::class, 'edit']);
+Route::patch('/ideas/{idea}', [IdeaController::class, 'update']);
+Route::delete('/ideas/{idea}', [IdeaController::class, 'destroy']);
 
-    return view('ideas.index', [
-        'ideas' => $ideas
-    ]);
-});
+Route::get('/register', [RegisteredUserController::class, 'create']);
+Route::post('/register', [RegisteredUserController::class, 'store']);
 
-//store
-Route::post('/ideas', function () {
-    Idea::create([
-        'description' => request('description'),
-        'state'       => 'pending'
-    ]);
-
-    return redirect('/ideas');
-});
-
-//show one idea
-Route::get('/ideas/{idea}', function (Idea $idea) {
-    return view('ideas.show', [
-        'idea' => $idea
-    ]);
-});
-
-//edit idea
-Route::get('/ideas/{idea}/edit', function (Idea $idea) {
-    return view('ideas.edit', [
-        'idea' => $idea
-    ]);
-});
-
-//update idea
-Route::patch('/ideas/{idea}', function (Idea $idea) {
-    $idea->update([
-        'description' => request('description'),
-    ]);
-
-    return redirect("/ideas/{$idea->id}");
-});
-
-//delete
-Route::delete('/ideas/{idea}', function (Idea $idea) {
-    $idea->delete();
-
-    return redirect('/ideas');
-});
+Route::get('/sessions', [SessionsController::class, 'create']);
+Route::post('/sessions', [SessionsController::class, 'store']);
+Route::delete('/sessions', [SessionsController::class, 'destroy']);

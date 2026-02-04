@@ -14,5 +14,9 @@ export default defineConfig({
         watch: {
             ignored: ['**/storage/framework/views/**'],
         },
+        cors: {
+            // Разрешаем запросы с вашего домена
+            origin: 'https://learning-laravel-prod',
+        },
     },
 });
