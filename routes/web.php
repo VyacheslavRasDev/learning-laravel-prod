@@ -7,7 +7,7 @@ Route::get('/', function () {
     return redirect('/ideas');
 });
 
-//get all ideas
+//index
 Route::get('/ideas', function () {
     $ideas = Idea::all();
 
