@@ -13,16 +13,15 @@
         </ul>
     </div>
     <div class="navbar-end gap-2">
-        @guest
-            <a href="/register" class="btn bg-violet-800">Register</a>
-            <a href="/sessions" class="btn bg-violet-800">Log In</a>
-        @endguest
         @auth
             <form action="/sessions" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn bg-violet-800">Log Out</button>
             </form>
+            @else
+                <a href="/register" class="btn bg-violet-800">Register</a>
+                <a href="/sessions" class="btn bg-violet-800">Log In</a>
         @endauth
     </div>
 </header>
