@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/ideas');
 });
+
 Route::middleware('auth')->group(function () {
     Route::get('/ideas', [IdeaController::class, 'index']);
     Route::get('/ideas/create', [IdeaController::class, 'create']);
@@ -28,3 +29,4 @@ Route::middleware('guest')->group(function () {
     Route::get('/sessions', [SessionsController::class, 'create'])->name('login');
     Route::post('/sessions', [SessionsController::class, 'store']);
 });
+

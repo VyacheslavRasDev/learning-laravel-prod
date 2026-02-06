@@ -10,6 +10,11 @@
             <li>
                 <a href="/ideas/create">New idea</a>
             </li>
+            @can('view-admin')
+                <li>
+                    <a href="/admin">Admin</a>
+                </li>
+            @endcan
         </ul>
     </div>
     <div class="navbar-end gap-2">
@@ -19,9 +24,9 @@
                 @method('DELETE')
                 <button type="submit" class="btn bg-violet-800">Log Out</button>
             </form>
-            @else
-                <a href="/register" class="btn bg-violet-800">Register</a>
-                <a href="/sessions" class="btn bg-violet-800">Log In</a>
+        @else
+            <a href="/register" class="btn bg-violet-800">Register</a>
+            <a href="/sessions" class="btn bg-violet-800">Log In</a>
         @endauth
     </div>
 </header>
